@@ -1,0 +1,132 @@
+<c:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:c="sap.ui.core"
+	xmlns:f="sap.ui.layout.form"
+>
+	<Dialog
+		id="openDialog"
+		title="{i18n>registerVehicle}"
+	>
+		<beginButton>
+			<Button
+				text="{i18n>save}"
+				type="Accept"
+				press="handleSaveBtnPress"
+			/>
+		</beginButton>
+		<endButton>
+			<Button
+				text="{i18n>cancel}"
+				type="Reject"
+				press="handleCancelBtnPress"
+			/>
+		</endButton>
+		<f:SimpleForm
+			id="RegisterForm"
+			editable="true"
+		>
+			<f:content>
+
+				
+				<Label text="{i18n>cpf}"/>
+				<Input
+					value="{Vehicle>/Customerid}"
+					id="cpfInput"
+					width="100%"
+					showValueHelp="true"
+					valueHelpRequest="onSearch"
+					placeholder="{i18n>addCpf}"
+					required="true"
+					valueHelpOnly="true"
+				/>
+				<Label text="{i18n>plate}"/>
+				<MaskInput
+					id="plateInput"
+					value="{Vehicle>/Plate}"
+					mask="CCCCCCC"
+					placeholder="{i18n>addPlate}"
+				>
+					<rules>
+						<MaskInputRule
+							maskFormatSymbol="C"
+							regex="[A-Z0-9]"
+						/>
+					</rules>
+				</MaskInput>
+				<Label text="{i18n>brand}"/>
+				<InputListItem>
+					<Select
+						width="100%"
+						selectedKey="{Vehicle>/Brand}"
+					>
+						<c:Item
+							key=""
+							text="{i18n>addBrand}"
+						/>
+						<c:Item
+							key="Mercedes-benz"
+							text="Mercedes-Benz"
+						/>
+						<c:Item
+							key="Fiat"
+							text="Fiat"
+						/>
+						<c:Item
+							key="Tesla Motors"
+							text="Tesla Motors"
+						/>
+						<c:Item
+							key="Porsche"
+							text="Porsche"
+						/>
+						<c:Item
+							key="Ford"
+							text="Ford"
+						/>
+					</Select>
+				</InputListItem>
+				<Label text="{i18n>model}"/>
+				<SearchField
+					id="modelSearchField"
+					width="50%"
+					placeholder="{i18n>searchFor}"
+					enableSuggestions="true"
+					suggest=".onSuggestModel"
+					suggestionItems="{
+						path: '/VehiclesSet',
+						sorter: { path: 'Model' }
+					}"
+					value="{Vehicle>/Model}"
+					showSearchButton="false"
+				>
+					<SuggestionItem
+						text="{Model}"
+						description="{
+							path: 'VehiclesSet'
+						}"
+						key="{Model}"
+					/>
+				</SearchField>
+
+				<Label text="{i18n>fabyear}"/>
+				<MaskInput
+					value="{Vehicle>/Fabyear}"
+					placeholder="{i18n>addFabyear}"
+					mask="9999"
+				>
+					<rules>
+						<MaskInputRule
+							maskFormatSymbol="9"
+							regex="[0-9]"
+						/>
+					</rules>
+				</MaskInput>
+				<Label text="{i18n>color}"/>
+				<Input
+					value="{Vehicle>/Color}"
+					placeholder="{i18n>addColor}"
+				/>
+			</f:content>
+		</f:SimpleForm>
+	</Dialog>
+</c:FragmentDefinition>

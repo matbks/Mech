@@ -1,0 +1,51 @@
+{
+  "name": "sap.ui.demo.masterdetail",
+  "version": "0.0.1",
+  "description": "A skeleton for Master-Detail applications",
+  "private": true,
+  "scripts": {
+    "lint": "eslint webapp",
+    "karma": "karma start",
+    "karma-ci": "karma start karma-ci.conf.js",
+    "watch": "npm run karma",
+    "test": "npm run lint && rimraf coverage && npm run karma-ci",
+    "start_old": "ui5 serve",
+    "build_old": "rimraf dist && ui5 build -a",
+    "start": "fiori run --open \"test/flpSandbox.html?sap-client=100&sap-ui-xx-viewCache=false#app-tile\"",
+    "start-local": "fiori run --config ./ui5-local.yaml --open \"test/flpSandboxMockServer.html?sap-client=100&sap-ui-xx-viewCache=false#app-tile\"",
+    "start-noflp": "fiori run --open \"index.html?sap-client=100&sap-ui-xx-viewCache=false\"",
+    "start-variants-management": "fiori run --open \"preview.html?sap-client=100&sap-ui-xx-viewCache=false&fiori-tools-rta-mode=true&sap-ui-rta-skip-flex-validation=true#preview-app\"",
+    "build": "ui5 build -a --clean-dest --include-task=generateManifestBundle generateCachebusterInfo",
+    "deploy": "fiori verify",
+    "deploy-config": "fiori add deploy-config",
+    "start-mock": "fiori run --open \"test/flpSandboxMockServer.html?sap-client=100&sap-ui-xx-viewCache=false#app-tile\"",
+    "suite-tests": "fiori run --open 'test/testsuite.qunit.html'",
+    "unit-tests": "fiori run --open 'test/unit/unitTests.qunit.html'",
+    "int-tests": "fiori run --open 'test/integration/opaTests.qunit.html'"
+  },
+  "devDependencies": {
+    "@sap/ux-ui5-tooling": "^1.5.1",
+    "@ui5/cli": "^2.14.1",
+    "@ui5/fs": "^2.0.6",
+    "@ui5/logger": "^2.0.1",
+    "eslint": "^8.6.0",
+    "karma": "^6.3.10",
+    "karma-chrome-launcher": "^3.1.0",
+    "karma-coverage": "^2.1.0",
+    "karma-ui5": "^2.4.0",
+    "puppeteer": "^13.0.1",
+    "rimraf": "3.0.2"
+  },
+  "sapuxLayer": "CUSTOMER_BASE",
+  "keywords": [
+    "ui5",
+    "openui5",
+    "sapui5"
+  ],
+  "main": "webapp/index.html",
+  "ui5": {
+    "dependencies": [
+      "@sap/ux-ui5-tooling"
+    ]
+  }
+}

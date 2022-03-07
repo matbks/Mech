@@ -1,0 +1,116 @@
+<mvc:View
+    controllerName="com.fiori.zmecanicavehicle.controller.View1"
+   	xmlns:mvc="sap.ui.core.mvc"
+	displayBlock="true"
+	xmlns="sap.m"
+	xmlns:smartFilterBar="sap.ui.comp.smartfilterbar"
+	xmlns:smartTable="sap.ui.comp.smarttable"
+>
+	<Shell id="shell">
+		<App id="app">
+			<pages>
+				<Page
+					id="page"
+					title="{i18n>title}"
+				>
+					<content>
+						<VBox fitContainer="true">
+							<smartFilterBar:SmartFilterBar
+								id="smartFilterBar"
+								persistencyKey="UniqueAndStablePersistencyKey"
+								considerSelectionVariants="true"
+								entitySet="VehiclesSet"
+								enableBasicSearch="true"
+								basicSearchFieldName="CPF"
+								showClearButton="true"
+								filterBarExpanded="false"
+								liveMode="true"								
+							>
+								<smartFilterBar:controlConfiguration>
+									<smartFilterBar:ControlConfiguration
+										key="CustomerId"
+										visibleInAdvancedArea="true"
+									/>
+									<smartFilterBar:ControlConfiguration
+										key="Plate"
+										visibleInAdvancedArea="true"
+									/>
+
+									<smartFilterBar:ControlConfiguration
+										key="Model"
+										visibleInAdvancedArea="true"
+									/>
+
+									<smartFilterBar:ControlConfiguration
+										key="Brand"
+										visibleInAdvancedArea="true"
+									/>
+
+									<smartFilterBar:ControlConfiguration
+										key="FabYear"
+										visibleInAdvancedArea="true"
+									/>
+
+									<smartFilterBar:ControlConfiguration
+										key="Color"
+										visibleInAdvancedArea="true"
+									/>
+
+								</smartFilterBar:controlConfiguration>
+								<!-- layout data used to make the table growing but the filter bar fixed -->
+								<smartFilterBar:layoutData>
+									<FlexItemData shrinkFactor="0"/>
+								</smartFilterBar:layoutData>
+							</smartFilterBar:SmartFilterBar>
+							<smartTable:SmartTable
+								id="smartTable"
+								entitySet="VehiclesSet"
+								smartFilterId="smartFilterBar"
+								tableType="ResponsiveTable"
+								useVariantManagement="false"
+								header="{i18n>header}"
+								initiallyVisibleFields="Customerid,Plate,Brand,Model,Color,Fabyear,Action"
+								enableAutoBinding="true"
+							>
+								<Table
+									id="SelectionTable"
+									mode="SingleSelectMaster"
+								/>
+								<smartTable:customToolbar>
+									<OverflowToolbar design="Transparent">
+										<ToolbarSpacer/>
+										<OverflowToolbarButton
+											icon="sap-icon://add-document"
+											text="{i18n>create}"
+											tooltip="{i18n>create}"
+											press="onCreate"
+											
+										/>
+										<OverflowToolbarButton
+											icon="sap-icon://delete"
+											text="{i18n>delete}"
+											tooltip="{i18n>delete}"
+											press="onDelete"
+										/>
+										<OverflowToolbarButton
+											icon="sap-icon://edit"
+											text="{i18n>edit}"
+											tooltip="{i18n>edit}"
+											press="onEdit"
+										/>
+									</OverflowToolbar>
+								</smartTable:customToolbar>
+								<smartTable:layoutData>
+									<FlexItemData
+										growFactor="1"
+										baseSize="0%"
+									/>
+								</smartTable:layoutData>
+							</smartTable:SmartTable>
+						</VBox>		
+					</content>
+				</Page>
+			</pages>
+		</App>
+	</Shell>
+</mvc:View>
