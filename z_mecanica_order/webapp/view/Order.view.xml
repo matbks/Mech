@@ -1,0 +1,23 @@
+<mvc:View
+	controllerName="sap.ui.demo.masterdetail.controller.Order"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.m"
+	displayBlock="true"
+	height="100%"
+	busyIndicatorDelay="0"
+>
+
+<App>
+    <pages>
+        <Page showNavButton="true" navButtonPress="onNavBack">
+            <content>
+                <VBox>
+                    <Text id="myTestId" text="Name"></Text>
+                    <Text id="TestId" text="Branch"></Text>
+                </VBox>
+            </content>
+        </Page>
+    </pages>
+</App>
+
+</mvc:View>

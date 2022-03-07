@@ -207,16 +207,17 @@ sap.ui.define([
 		},
 
 		onPress: function(oEvent) {
+			debugger;
 			var oItem = oEvent.getSource();
-			var sPath = oItem.getBindingContext().getPath("Cpf");
-			var sPath1 = oItem.getBindingContext().getPath("Branch");
-			var oTable = this.getView().byId("abc");
+			var sPath = oItem.getBindingContext().getPath("Plate");
+			var sPath1 = oItem.getBindingContext().getPath("Customerid");
+			var oTable = this.getView().byId("tableVehicles");
 			var modelData = oTable.getModel();
 			var data = modelData.getProperty(sPath);
 			var data1 = modelData.getProperty(sPath1);
 	  
 			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
-			oRouter.navTo("page2", {
+			oRouter.navTo("order", {
 			  invoicePath: data,
 			  invoicePath1: data1
 			});

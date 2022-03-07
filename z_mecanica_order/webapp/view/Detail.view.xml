@@ -27,7 +27,7 @@
 		</semantic:headerContent> -->
 		<semantic:content>
 			<Table
-				id="lineItemsList"
+				id="tableVehicles"
 				width="auto"
 				items="{
 					path: 'CustomersToVehicles',

@@ -1,7 +1,7 @@
 {
   "name": "sap.ui.demo.masterdetail",
   "version": "0.0.1",
-  "description": "A skeleton for Master-Detail applications",
+  "description": "Registro de ordens",
   "private": true,
   "scripts": {
     "lint": "eslint webapp",

@@ -94,7 +94,15 @@
                         "master",
                         "object"
                     ]
-                }
+                },
+
+                {
+					"pattern": "Order/{invoicePath}/{invoicePath1}",
+					"name": "order",
+					"target": [ 
+						"order"],
+					"controlAggregation": "pages"
+				}
             ],
             "targets": {
                 "master": {
@@ -107,7 +115,11 @@
                     "viewId": "detail",
                     "viewLevel": 1,
                     "controlAggregation": "midColumnPages"
-                },
+                },               
+				"order": {
+					"viewName": "Order",
+					"controlAggregation": "midColumnPages"
+				},
                 "detailObjectNotFound": {
                     "viewName": "DetailObjectNotFound",
                     "viewId": "detailObjectNotFound",
