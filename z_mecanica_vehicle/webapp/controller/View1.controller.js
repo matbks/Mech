@@ -11,7 +11,7 @@ sap.ui.define([
    */
   function (Controller, Fragment, MessageToast, MessageBox, FilterOperator,Filter) {
     "use strict";
-
+ 
     return Controller.extend("com.fiori.zmecanicavehicle.controller.View1", {
       onInit: function () {
 
