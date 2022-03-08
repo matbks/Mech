@@ -2,22 +2,108 @@
 	controllerName="sap.ui.demo.masterdetail.controller.Order"
 	xmlns:mvc="sap.ui.core.mvc"
 	xmlns="sap.m"
+	xmlns:smartTable="sap.ui.comp.smarttable"
+	xmlns:smartFilterBar="sap.ui.comp.smartfilterbar"
+	xmlns:semantic="sap.f.semantic"
 	displayBlock="true"
 	height="100%"
 	busyIndicatorDelay="0"
 >
-
-<App>
-    <pages>
-        <Page showNavButton="true" navButtonPress="onNavBack">
-            <content>
-                <VBox>
-                    <Text id="myTestId" text="Name"></Text>
-                    <Text id="TestId" text="Branch"></Text>
-                </VBox>
-            </content>
-        </Page>
-    </pages>
-</App>
-
+	<semantic:SemanticPage
+		id="detailPage"
+		busy="{detailView>/busy}"
+		busyIndicatorDelay="{detailView>/delay}"
+	>
+		<semantic:titleHeading>
+			<Title
+				text="{Name}"
+				level="H2"
+			/>
+		</semantic:titleHeading>
+		<semantic:content>
+			<App id="app">
+				<VBox fitContainer="true">
+					<smartFilterBar:SmartFilterBar
+						id="smartFilterBar"
+						persistencyKey="UniqueAndStablePersistencyKey"
+						considerSelectionVariants="true"
+						entitySet="CustomersSet"
+						enableBasicSearch="true"
+						basicSearchFieldName="CPF"
+						showClearButton="true"
+						filterBarExpanded="false"
+						liveMode="true"
+					>
+						<smartFilterBar:controlConfiguration>
+							<smartFilterBar:ControlConfiguration
+								key="Cpf"
+								visibleInAdvancedArea="true"
+							/>
+							<smartFilterBar:ControlConfiguration
+								key="Name"
+								visibleInAdvancedArea="true"
+							/>
+							<smartFilterBar:ControlConfiguration
+								key="Telephone"
+								visibleInAdvancedArea="true"
+							/>
+							<smartFilterBar:ControlConfiguration
+								key="Address"
+								visibleInAdvancedArea="true"
+							/>
+						</smartFilterBar:controlConfiguration>
+						<!-- layout data used to make the table growing but the filter bar fixed -->
+						<smartFilterBar:layoutData>
+							<FlexItemData shrinkFactor="0"/>
+						</smartFilterBar:layoutData>
+					</smartFilterBar:SmartFilterBar>
+					<smartTable:SmartTable
+						id="smartTable"
+						entitySet="CustomersSet"
+						smartFilterId="smartFilterBar"
+						tableType="ResponsiveTable"
+						useVariantManagement="false"
+						header="Clientes Cadastrados"
+						initiallyVisibleFields="Cpf,Name,Telephone,Address,Action"
+						enableAutoBinding="true"
+						showFullScreenButton="true"
+					>
+						<Table
+							id="SelectionTable"
+							mode="SingleSelectMaster"
+						/>
+						<smartTable:customToolbar>
+							<OverflowToolbar design="Transparent">
+								<ToolbarSpacer/>
+								<OverflowToolbarButton
+									icon="sap-icon://add-document"
+									text="{i18n>create}"
+									tooltip="{i18n>create}"
+									press="onCreate"
+								/>
+								<OverflowToolbarButton
+									icon="sap-icon://delete"
+									text="{i18n>delete}"
+									tooltip="{i18n>delete}"
+									press="onDelete"
+								/>
+								<OverflowToolbarButton
+									icon="sap-icon://edit"
+									text="{i18n>edit}"
+									tooltip="{i18n>edit}"
+									press="onEdit"
+								/>
+							</OverflowToolbar>
+						</smartTable:customToolbar>
+						<smartTable:layoutData>
+							<FlexItemData
+								growFactor="1"
+								baseSize="0%"
+							/>
+						</smartTable:layoutData>
+					</smartTable:SmartTable>
+				</VBox>
+			</App>
+		</semantic:content>
+	</semantic:SemanticPage>
 </mvc:View>

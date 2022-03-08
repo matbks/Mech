@@ -80,18 +80,12 @@
 							<Text text="{Fabyear}"/>
 							<Text text="{Color}"/>
 							<Text text="{Customerid}"/>
+							
 						</cells>
 					</ColumnListItem>
 				</items>
 			</Table>
 		</semantic:content>
-		<!--Semantic ShareMenu Buttons-->
-		<semantic:sendEmailAction>
-			<semantic:SendEmailAction
-				id="shareEmail"
-				press=".onSendEmailPress"/>
-		</semantic:sendEmailAction>
-
 		<semantic:closeAction>
 			<semantic:CloseAction
 					id="closeColumn"
