@@ -207,7 +207,6 @@ sap.ui.define([
 		},
 
 		onPress: function(oEvent) {
-			debugger;
 			var oItem = oEvent.getSource();
 			var sPath = oItem.getBindingContext().getPath("Plate");
 			var sPath1 = oItem.getBindingContext().getPath("Customerid");

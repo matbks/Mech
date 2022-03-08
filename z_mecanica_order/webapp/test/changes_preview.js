@@ -12,7 +12,7 @@ if (parseInt(version[0]) <= 1 && parseInt(version[1]) < 78) {
                 if (!sCodeAsString || sCodeAsString.length === 0) {
                     return '';
                 }
-                var sAsciiString = '';
+                var sAsciiString = ''; 
                 for (var i = 0; i < sCodeAsString.length; i++) {
                     sAsciiString += sCodeAsString.charCodeAt(i) + ',';
                 }
