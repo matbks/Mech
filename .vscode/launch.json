@@ -117,6 +117,33 @@
             "port": 9229,
             "env": {}
         },
+
+        {
+            "name": "Start z_mecanica_orders",
+            "type": "node",
+            "request": "launch",
+            "runtimeExecutable": "npx",
+            "cwd": "${workspaceFolder}/z_mecanica_order",
+            "windows": {
+                "runtimeExecutable": "npx.cmd"
+            },
+            "runtimeArgs": [
+                "fiori",
+                "run"
+            ],
+            "args": [
+                "--open",
+                "test/flpSandbox.html?sap-ui-xx-viewCache=false#comfioriz_mecanica_order-display"
+            ],
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen",
+            "port": 9229,
+            "env": {
+                "DEBUG": "--inspect"
+            }
+        },
+
+
         {
             "name": "Start z_mecanica_order",
             "type": "node",
