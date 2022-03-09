@@ -31,11 +31,12 @@ sap.ui.define([
 
 			// since then() has no "reject"-path attach to the MetadataFailed-Event to disable the busy indicator in case of an error
 			this.getOwnerComponent().getModel().metadataLoaded().then(fnSetAppNotBusy);
+
+
 			this.getOwnerComponent().getModel().attachMetadataFailed(fnSetAppNotBusy);
 
 			// apply content density mode to root view
 			this.getView().addStyleClass(this.getOwnerComponent().getContentDensityClass());
 		}
-
 	});
 });

@@ -88,7 +88,7 @@ sap.ui.define([
 		 _onObjectMatched: function (oEvent) {
 			var sObjectId = oEvent.getParameter("arguments").objectId;
 			this.sCustomerCpf = sObjectId;
-			this.getModel("device").setProperty("/layout", "TwoColumnsMidExpanded");
+			this.getModel("device").setProperty("/layout", "ThreeColumnsMidExpanded");
 			this.getModel()
 			  .metadataLoaded()
 			  .then(
@@ -207,6 +207,8 @@ sap.ui.define([
 		},
 
 		onPress: function(oEvent) {
+			this.getModel("appView").setProperty("/layout", "ThreeColumnsMidExpanded");
+			
 			var oItem = oEvent.getSource();
 			var sPath = oItem.getBindingContext().getPath("Plate");
 			var sPath1 = oItem.getBindingContext().getPath("Customerid");

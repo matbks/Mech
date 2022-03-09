@@ -60,7 +60,7 @@ sap.ui.define(
 		  this.byId("ins").setModel(this.jModel);
 		},
 		onNavBack: function () {
-		  history.go(-1);
+		  history.go(-2);
 		},
 		_onObjectMatched: function (oEvent) {
 		  var sAnimalId = oEvent.getParameter("arguments").animalId;

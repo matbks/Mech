@@ -2,6 +2,8 @@
 	controllerName="sap.ui.demo.masterdetail.controller.Master"
 	xmlns="sap.m"
 	xmlns:semantic="sap.f.semantic"
+	xmlns:smartFilterBar="sap.ui.comp.smartfilterbar"
+	xmlns:smartTable="sap.ui.comp.smarttable"
 	xmlns:mvc="sap.ui.core.mvc">
 
 	<semantic:SemanticPage
@@ -15,85 +17,93 @@
 				level="H2"/>
 		</semantic:titleHeading>
 		<semantic:content>
-			<!-- For client side filtering add this to the items attribute: parameters: {operationMode: 'Client'}}" -->
-			<List
-				id="list"
-				width="auto"
-				class="sapFDynamicPageAlignContent"
-				items="{
-					path: '/CustomersSet',
-					sorter: {
-						path: 'Cpf',
-						descending: false
-					},
-					groupHeaderFactory: '.createGroupHeader'
-				}"
-				busyIndicatorDelay="{masterView>/delay}"
-				noDataText="{masterView>/noDataText}"
-				mode="{= ${device>/system/phone} ? 'None' : 'SingleSelectMaster'}"
-				growing="true"
-				growingScrollToLoad="true"
-				updateFinished=".onUpdateFinished"
-				selectionChange=".onSelectionChange">
-				<infoToolbar>
-					<Toolbar
-						active="true"
-						id="filterBar"
-						visible="{masterView>/isFilterBarVisible}"
-						press=".onOpenViewSettings">
-						<Title
-							id="filterBarLabel"
-							text="{masterView>/filterBarLabel}"
-							level="H3"/>
-					</Toolbar>
-				</infoToolbar>
-				<headerToolbar>
-					<OverflowToolbar>
-						<SearchField
-							id="searchField"
-							showRefreshButton="true"
-							tooltip="{i18n>masterSearchTooltip}"
-							search=".onSearch"
-							width="auto">
-							<layoutData>
-								<OverflowToolbarLayoutData
-									minWidth="150px"
-									maxWidth="240px"
-									shrinkable="true"
-									priority="NeverOverflow"/>
-							</layoutData>
-						</SearchField>
-						<ToolbarSpacer/>
-						<Button
-							id="sortButton"
-							press=".onOpenViewSettings"
-							icon="sap-icon://sort"
-							type="Transparent"/>
-						<Button
-							id="filterButton"
-							press=".onOpenViewSettings"
-							icon="sap-icon://filter"
-							type="Transparent"/>
-						<Button
-							id="groupButton"
-							press=".onOpenViewSettings"
-							icon="sap-icon://group-2"
-							type="Transparent"/>
-					</OverflowToolbar>
-				</headerToolbar>
-				<items>
-					<ObjectListItem
-						type="Navigation"
-						press=".onSelectionChange"
-						title="{Name}"
-						number="{
-							path: 'UnitNumber',
-							formatter: '.formatter.currencyValue'
-						}"
-						numberUnit="{UnitOfMeasure}">
-					</ObjectListItem>
-				</items>
-			</List>
-		</semantic:content>
+						<VBox fitContainer="true">
+							<smartFilterBar:SmartFilterBar
+								id="smartFilterBar"
+								persistencyKey="UniqueAndStablePersistencyKey"
+								considerSelectionVariants="true"
+								entitySet="CustomersSet"
+								enableBasicSearch="true"
+								basicSearchFieldName="CPF"
+								showClearButton="true"
+								filterBarExpanded="false"
+								liveMode="true"
+								
+							>
+								<smartFilterBar:controlConfiguration>
+									<smartFilterBar:ControlConfiguration
+										key="Cpf"
+										visibleInAdvancedArea="true"
+									/>
+
+									<smartFilterBar:ControlConfiguration
+										key="Name"
+										visibleInAdvancedArea="true"
+									/>
+
+									<smartFilterBar:ControlConfiguration
+										key="Telephone"
+										visibleInAdvancedArea="true"
+									/>
+
+									<smartFilterBar:ControlConfiguration
+										key="Address"
+										visibleInAdvancedArea="true"
+									/>
+
+								</smartFilterBar:controlConfiguration>
+								<!-- layout data used to make the table growing but the filter bar fixed -->
+								<smartFilterBar:layoutData>
+									<FlexItemData shrinkFactor="0"/>
+								</smartFilterBar:layoutData>
+							</smartFilterBar:SmartFilterBar>
+							<smartTable:SmartTable
+								id="smartTable"
+								entitySet="CustomersSet"
+								smartFilterId="smartFilterBar"
+								tableType="ResponsiveTable"
+								useVariantManagement="false"
+								header="Clientes Cadastrados"
+								initiallyVisibleFields="Cpf,Name,Telephone,Address,Action"
+								enableAutoBinding="true"
+								
+							>
+								<Table
+									id="SelectionTable"
+									mode="SingleSelectMaster"
+									selectionChange="onSelectionChange"
+								/>
+								<smartTable:customToolbar>
+									<OverflowToolbar design="Transparent">
+										<ToolbarSpacer/>
+										<OverflowToolbarButton
+											icon="sap-icon://add-document"
+											text="{i18n>create}"
+											tooltip="{i18n>create}"
+											press="onCreate"
+										/>
+										<OverflowToolbarButton
+											icon="sap-icon://delete"
+											text="{i18n>delete}"
+											tooltip="{i18n>delete}"
+											press="onDelete"
+										/>
+										<OverflowToolbarButton
+											icon="sap-icon://edit"
+											text="{i18n>edit}"
+											tooltip="{i18n>edit}"
+											press="onEdit"
+										/>
+									</OverflowToolbar>
+								</smartTable:customToolbar>
+								<smartTable:layoutData>
+									<FlexItemData
+										growFactor="1"
+										baseSize="0%"
+									/>
+								</smartTable:layoutData>
+							</smartTable:SmartTable>
+						</VBox>		
+					</semantic:content>
 	</semantic:SemanticPage>
 </mvc:View>

@@ -94,7 +94,7 @@
                         "master",
                         "object"
                     ],
-                    "ControlAggregation": "endColumnPages"
+                    "ControlAggregation": "midColumnPages"
                 },
 
                 {
@@ -102,7 +102,7 @@
 					"name": "order",
 					"target": [ 
 						"order"],
-					"controlAggregation": "endColumnPages"
+					"controlAggregation": "midColumnPages"
 				}
             ],
             "targets": {
@@ -119,8 +119,7 @@
                 },               
 				"order": {
 					"viewName": "Order",
-                    "viewId":"order",
-					"controlAggregation": "endColumnPages" 
+					"controlAggregation": "midColumnPages" 
 				},
                 "detailObjectNotFound": {
                     "viewName": "DetailObjectNotFound",

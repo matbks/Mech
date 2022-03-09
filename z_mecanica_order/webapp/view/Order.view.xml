@@ -16,7 +16,7 @@
 	>
 		<semantic:titleHeading>
 			<Title
-				text="Order - {cc}"
+				text="Order"
 				level="H2"
 			/>
 		</semantic:titleHeading>
@@ -42,10 +42,10 @@
 								fitContainer="true"
 								alignItems="Center"
 							>
-								<!-- <Avatar
-									src="https://www.petz.com.br/blog/wp-content/uploads/2019/04/quantos-anos-vive-um-gatinho.jpg"
+								 <Avatar
+									src="https://di-uploads-pod5.dealerinspire.com/autocitysd/uploads/2017/12/typical-vehicle-maintenance-300x300.png"
 									class="sapUiTinyMarginEnd"
-								/> -->
+								/> 
 								<Title
 									text="{Name}"
 									wrapping="true"
@@ -88,11 +88,11 @@
 						wrap="Wrap"
 						fitContainer="true"
 					>
-						<!-- <Avatar
+						 <Avatar
 							class="sapUiSmallMarginEnd"
-							src="https://www.petz.com.br/blog/wp-content/uploads/2019/04/quantos-anos-vive-um-gatinho.jpg"
+							src="https://di-uploads-pod5.dealerinspire.com/autocitysd/uploads/2017/12/typical-vehicle-maintenance-300x300.png"
 							displaySize="L"
-						/> -->
+						/> 
 						<layout:VerticalLayout class="sapUiSmallMarginBeginEnd">
 							<ObjectAttribute
 								title="{/#Animals/Age/@sap:label}"
@@ -138,7 +138,7 @@
 					<uxap:ObjectPageSection
 						titleUppercase="false"
 						id="create"
-						title="{i18n>createOrder}"
+						title="Create Service Order"
 					>
 						<uxap:subSections>
 							<uxap:ObjectPageSubSection
@@ -154,26 +154,21 @@
 											<Toolbar>
 												<Button
 													icon="sap-icon://add"
-													text="Row"
+													text="Create"
 													press="addRow"
-												/>
-												<Button
-													icon="sap-icon://display"
-													text="Row"
-													press="fetchRecords"
 												/>
 											</Toolbar>
 										</headerToolbar>
 										<columns>
 											<Column width="50px"/>
 											<Column>
-												<Text text="Category"/>
+												<Text text="Description"/>
 											</Column>
 											<Column
 												minScreenWidth="Tablet"
 												demandPopin="true"
 											>
-												<Text text="Description"/>
+												<Text text="Date"/>
 											</Column>
 											<Column
 												minScreenWidth="Tablet"
@@ -191,7 +186,7 @@
 												minScreenWidth="Tablet"
 												demandPopin="true"
 											>
-												<Text text="Value"/>
+												<Text text="Price"/>
 											</Column>
 										</columns>
 										<items>
@@ -202,11 +197,11 @@
 														press="deleteRow"
 														type="Reject"
 													/>
-													<Input value="{Category}"/>
-													<Input value="{Description}"/>
-													<Input value="{Quantity}"/>
-													<Input value="{Unit}"/>
-													<Input value="{Value}"/>
+													<Input value="Oil change"/>
+													<Input value="09/03/2022"/>
+													<Input value="1"/>
+													<Input value="L"/>
+													<Input value="500,00"/>
 												</cells>
 											</ColumnListItem>
 										</items>

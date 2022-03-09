@@ -204,7 +204,6 @@ sap.ui.define([
                       if (oResponse.statusCode == "204") {
                         var msg = this.getOwnerComponent().getModel("i18n").getResourceBundle().getText("deleted");
                         MessageBox.success(msg);
-                        this.handleCancelBtnPress();
                       }
                     }.bind(this),
                     error: function (oError) {

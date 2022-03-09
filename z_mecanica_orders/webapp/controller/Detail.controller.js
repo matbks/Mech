@@ -88,7 +88,7 @@ sap.ui.define([
 		 _onObjectMatched: function (oEvent) {
 			var sObjectId = oEvent.getParameter("arguments").objectId;
 			this.sCustomerCpf = sObjectId;
-			this.getModel("device").setProperty("/layout", "TwoColumnsMidExpanded");
+			this.getModel("device").setProperty("/layout", "TwoColumnsBeginExpanded");
 			this.getModel()
 			  .metadataLoaded()
 			  .then(

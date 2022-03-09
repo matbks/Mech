@@ -123,7 +123,7 @@
             "type": "node",
             "request": "launch",
             "runtimeExecutable": "npx",
-            "cwd": "${workspaceFolder}/z_mecanica_order",
+            "cwd": "${workspaceFolder}/z_mecanica_orders",
             "windows": {
                 "runtimeExecutable": "npx.cmd"
             },
@@ -133,7 +133,7 @@
             ],
             "args": [
                 "--open",
-                "test/flpSandbox.html?sap-ui-xx-viewCache=false#comfioriz_mecanica_order-display"
+                "test/flpSandbox.html?sap-ui-xx-viewCache=false#comfioriz_mecanica_orders-display"
             ],
             "console": "integratedTerminal",
             "internalConsoleOptions": "neverOpen",

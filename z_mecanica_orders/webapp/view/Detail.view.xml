@@ -2,91 +2,205 @@
 	controllerName="sap.ui.demo.masterdetail.controller.Detail"
 	xmlns="sap.m"
 	xmlns:semantic="sap.f.semantic"
-	xmlns:mvc="sap.ui.core.mvc">
-
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:uxap="sap.uxap"
+	xmlns:layout="sap.ui.layout"
+>
 	<semantic:SemanticPage
 		id="detailPage"
 		busy="{detailView>/busy}"
 		busyIndicatorDelay="{detailView>/delay}">
-		<semantic:titleHeading>
+		<!-- <semantic:titleHeading>
 			<Title
 				text="{i18n>customer} - {Name}"
 				level="H2"/>
-		</semantic:titleHeading>
+		</semantic:titleHeading> -->
 		
 		<semantic:content>
-			<Table
-				id="tableVehicles"
-				width="auto"
-				items="{
-					path: 'CustomersToVehicles',
-					sorter: {
-						path: 'Customerid',
-						descending: false
-					}
-				}"
-				updateFinished=".onListUpdateFinished"
-				noDataText="{i18n>detailLineItemTableNoDataText}"
-				busyIndicatorDelay="{detailView>/lineItemTableDelay}">
-				<headerToolbar>
-					<Toolbar>
-						<Title
-							id="lineItemsTitle"
-							text="{detailView>/lineItemListTitle}"
-							titleStyle="H3"
-							level="H3"/>
-					</Toolbar>
-				</headerToolbar>
-				<columns>
-					<Column>
-						<Text text="{i18n>plate}"/>	
-					</Column>
-					<Column>
-						<Text text="{i18n>brand}"/>
-					</Column>
-					<Column>
-						<Text text="{i18n>model}"/>
-					</Column>
-					<Column>
-						<Text text="{i18n>fabyear}"/>
-					</Column>
-					<Column>
-						<Text text="{i18n>color}"/>
-					</Column>
-					<Column>
-						<Text text="{i18n>customerid}"/>
-					</Column>
-				</columns>
-				<items>
-					<ColumnListItem press="onPress" type="Navigation">
-						<cells>
-							<ObjectIdentifier
-								title="{Plate}"
-								text="{LineItemID}"/>
-						    
-							<Text text="{Brand}"/>
-							<Text text="{Model}"/>
-							<Text text="{Fabyear}"/>
-							<Text text="{Color}"/>
-							<Text text="{Customerid}"/>
-							
-						</cells>
-					</ColumnListItem>
-				</items>
-			</Table>
-		</semantic:content>
-		<semantic:closeAction>
-			<semantic:CloseAction
-					id="closeColumn"
-					press=".onCloseDetailPress"/>
-		</semantic:closeAction>
+			<uxap:ObjectPageLayout
+				id="ObjectPageLayout"
+				enableLazyLoading="true"
+				useIconTabBar="true"
+				showTitleInHeaderContent="true"
+				selectedSection="create"	
+				upperCaseAnchorBar="false"
+				showHeaderContent="false"
+			>
+				<uxap:headerTitle>
+					<uxap:ObjectPageDynamicHeaderTitle>
+						<uxap:expandedHeading>
+							<Title
+								text="{Name}"
+								wrapping="true"
+							/>
+						</uxap:expandedHeading>
+						<uxap:snappedHeading>
+							<FlexBox
+								fitContainer="true"
+								alignItems="Center"
+							>
+								 <Avatar
+									src="https://di-uploads-pod5.dealerinspire.com/autocitysd/uploads/2017/12/typical-vehicle-maintenance-300x300.png"
+									class="sapUiTinyMarginEnd"
+								/> 
+								<Title
+									text="{Name}"
+									wrapping="true"
+								/>
+							</FlexBox>
+						</uxap:snappedHeading>
+						<uxap:expandedContent>
+							<Text text="{Species}"/>
+						</uxap:expandedContent>
+						<uxap:snappedContent>
+							<Text text="{Species}"/>
+						</uxap:snappedContent>
+						<uxap:snappedTitleOnMobile>
+							<Title text="{Species}"/>
+						</uxap:snappedTitleOnMobile>
+					</uxap:ObjectPageDynamicHeaderTitle>
+				</uxap:headerTitle>
+				<uxap:headerContent>
+					<FlexBox
+						wrap="Wrap"
+						fitContainer="true"
+					>
+						 <Avatar
+							class="sapUiSmallMarginEnd"
+							src="https://di-uploads-pod5.dealerinspire.com/autocitysd/uploads/2017/12/typical-vehicle-maintenance-300x300.png"
+							displaySize="L"
+						/> 
+						<layout:VerticalLayout class="sapUiSmallMarginBeginEnd">
+							<ObjectAttribute
+								title="{/#Animals/Age/@sap:label}"
+								text="{Age}"
+							/>
+							<ObjectAttribute
+								title="{/#Animals/Race/@sap:label}"
+								text="{Race}"
+							/>
+						</layout:VerticalLayout>
+						<!-- <layout:HorizontalLayout class="sapUiSmallMarginBeginEnd">
+							<Image src="./test-resources/sap/uxap/images/linkedin.png"/>
+							<Image
+								src="./test-resources/sap/uxap/images/Twitter.png"
+								class="sapUiSmallMarginBegin"
+							/>
+						</layout:HorizontalLayout> -->
+						<layout:VerticalLayout class="sapUiSmallMarginBeginEnd">
+							<ObjectAttribute
+								title="{/#Animals/Createdon/@sap:label}"
+								text="{
+									path: 'Createdon',
+									type: 'sap.ui.model.type.DateTime',
+									formatOptions: {
+										style: 'medium'
+									}
+								}"
+							/>
+						</layout:VerticalLayout>
 
-		<semantic:fullScreenAction>
-			<semantic:FullScreenAction
-					id="enterFullScreen"
-					visible="{= !${device>/system/phone} &amp;&amp; !${appView>/actionButtonsInfo/midColumn/fullScreen}}"
-					press=".toggleFullScreen"/>
-		</semantic:fullScreenAction>
+					</FlexBox>
+				</uxap:headerContent>
+				<uxap:sections>
+					<uxap:ObjectPageSection
+						titleUppercase="false"
+						id="create"
+						title="Create Service Order"
+					>
+						<uxap:subSections>
+							<uxap:ObjectPageSubSection
+								id="goalsSS1"
+								titleUppercase="false"
+							>
+								<uxap:blocks>
+									<Table
+										id="ins"
+										items="{/Products}"
+									>
+										<headerToolbar>
+											<Toolbar>
+												<Button
+													icon="sap-icon://add"
+													text="Create"
+													press="addRow"
+												/>
+											</Toolbar>
+										</headerToolbar>
+										<columns>
+											<Column width="50px"/>
+											<Column>
+												<Text text="Description"/>
+											</Column>
+											<Column
+												minScreenWidth="Tablet"
+												demandPopin="true"
+											>
+												<Text text="Date"/>
+											</Column>
+											<Column
+												minScreenWidth="Tablet"
+												demandPopin="true"
+											>
+												<Text text="Quantity"/>
+											</Column>
+											<Column
+												minScreenWidth="Tablet"
+												demandPopin="true"
+											>
+												<Text text="Unit"/>
+											</Column>
+											<Column
+												minScreenWidth="Tablet"
+												demandPopin="true"
+											>
+												<Text text="Price"/>
+											</Column>
+										</columns>
+										<items>
+											<ColumnListItem>
+												<cells>
+													<Button
+														icon="sap-icon://delete"
+														press="deleteRow"
+														type="Reject"
+													/>
+													<Input value="Oil change"/>
+													<Input value="09/03/2022"/>
+													<Input value="1"/>
+													<Input value="L"/>
+													<Input value="500,00"/>
+												</cells>
+											</ColumnListItem>
+										</items>
+									</Table>
+								</uxap:blocks>
+							</uxap:ObjectPageSubSection>
+						</uxap:subSections>
+					</uxap:ObjectPageSection>
+					
+			
+					
+					<uxap:ObjectPageSection
+						titleUppercase="false"
+						id="connections"
+						title="Create Product Order"
+					>
+						<uxap:subSections>
+							<uxap:ObjectPageSubSection
+								id="connectionsSS1"
+								titleUppercase="false"
+							>
+								<uxap:blocks>
+									<Label text="qualquer coisa"/>
+								</uxap:blocks>
+							</uxap:ObjectPageSubSection>
+						</uxap:subSections>
+					</uxap:ObjectPageSection>
+				</uxap:sections>
+			</uxap:ObjectPageLayout>
+		</semantic:content>
+
 		<semantic:exitFullScreenAction>
 			<semantic:ExitFullScreenAction
 					id="exitFullScreen"
