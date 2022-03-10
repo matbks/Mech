@@ -45,7 +45,7 @@ sap.ui.define([
                 var msg = this.getOwnerComponent().getModel("i18n").getResourceBundle().getText("created");
                 MessageBox.success(msg);
                 this.clearModel(oModelCustomer);
-                this.handleCancelBtnPress();
+                //this.handleCancelBtnPress();
               }
             }.bind(this),
 
@@ -67,7 +67,7 @@ sap.ui.define([
               var msg = this.getOwnerComponent().getModel("i18n").getResourceBundle().getText("updated");
               MessageBox.success(msg);
               this.clearModel(oModelCustomer);
-              this.handleCancelBtnPress();
+              //this.handleCancelBtnPress();
               oModel.refresh();
             }.bind(this),
 

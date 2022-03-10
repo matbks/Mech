@@ -26,8 +26,6 @@ sap.ui.define([
 			// set the device model
 			this.setModel(models.createDeviceModel(), "device");
 
-			this.setModel(models.createVehiclesModel(), "Animal");
-
 			this.setModel(models.createCustomerModel(), "Customer");
 
 			this.setModel(models.createOrderModel(), "Order");

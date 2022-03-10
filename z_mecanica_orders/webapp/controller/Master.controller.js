@@ -8,9 +8,9 @@ sap.ui.define([
 	/**
 	 * @param {typeof sap.ui.core.mvc.Controller} Controller
 	 */
-	function (BaseController, CFragment, MessageToast, MessageBox, Device) {
+	function (BaseController, Fragment, MessageToast, MessageBox, Device) {
 	  "use strict";
-  
+
 	  return BaseController.extend("sap.ui.demo.masterdetail.controller.Master", {
 		onInit: function () {
   
@@ -44,7 +44,7 @@ sap.ui.define([
 		  if (!this.byId("openDialog")) {
 			Fragment.load({
 			  id: oView.getId(),
-			  name: "com.fiori.zmecanicacustomer.view.Register",
+			  name: "sap.ui.demo.masterdetail.view.Register",
 			  controller: this,
 			}).then(function (oDialog) {
 			  oView.addDependent(oDialog);
@@ -103,33 +103,34 @@ sap.ui.define([
 		},
   
 		onEdit() {
-  
-		  var oSmartTable = this.getView().byId("smartTable").getTable();
-  
-		  if (oSmartTable._aSelectedPaths.length > 1) { MessageBox.error( this.getOwnerComponent().getModel("i18n").getResourceBundle().getText("multipleRegisterNotAllowed") ); }
-  
-		  else if (oSmartTable._aSelectedPaths.length < 1) { MessageBox.error(this.getOwnerComponent().getModel("i18n").getResourceBundle().getText("nullRegisterNotAllowed") ); }
-  
-		  else {
-			var SelectedItem = oSmartTable.getModel().getProperty(oSmartTable._aSelectedPaths.toString());
-			var oView = this.getView();
-			var modelCustomer = oView.getModel("Customer");
-			modelCustomer.setData(SelectedItem);
-			if (!this.byId("openDialog")) {
-			  Fragment.load({
-				id: oView.getId(),
-				name: "com.fiori.zmecanicacustomer.view.Register",
-				controller: this,
-			  }).then(function (oDialog) {
-				oView.addDependent(oDialog);
-				oDialog.open();
-			  });
-			} else {
-			  this.byId("openDialog").open();
+
+			var oSmartTable = this.getView().byId("smartTable").getTable();
+	
+			if (oSmartTable._aSelectedPaths.length > 1) { MessageBox.error( this.getOwnerComponent().getModel("i18n").getResourceBundle().getText("multipleRegisterNotAllowed") ); }
+	
+			else if (oSmartTable._aSelectedPaths.length < 1) { MessageBox.error(this.getOwnerComponent().getModel("i18n").getResourceBundle().getText("nullRegisterNotAllowed") ); }
+	
+			else {
+			  var SelectedItem = oSmartTable.getModel().getProperty(oSmartTable._aSelectedPaths.toString());
+			  var oView = this.getView();
+			  var modelCustomer = oView.getModel("Customer");
+			  modelCustomer.setData(SelectedItem);
+			  if (!this.byId("openDialog")) {
+				Fragment.load({
+				  id: oView.getId(),
+				  name: "sap.ui.demo.masterdetail.view.Register",
+				  controller: this,
+				}).then(function (oDialog) {
+				  oView.addDependent(oDialog);
+				  oDialog.open();
+				});
+			  } else {
+				this.byId("openDialog").open();
+			  }
+			  this.gbEditing = true;
 			}
-			this.gbEditing = true;
-		  }
-		},
+		  },
+	
   
 		onDelete(oEvent) {
 		  

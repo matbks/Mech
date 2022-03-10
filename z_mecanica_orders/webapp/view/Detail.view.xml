@@ -72,11 +72,11 @@
 						/> 
 						<layout:VerticalLayout class="sapUiSmallMarginBeginEnd">
 							<ObjectAttribute
-								title="{/#Animals/Age/@sap:label}"
+								title="Age"
 								text="{Age}"
 							/>
 							<ObjectAttribute
-								title="{/#Animals/Race/@sap:label}"
+								title="Race"
 								text="{Race}"
 							/>
 						</layout:VerticalLayout>
@@ -89,7 +89,7 @@
 						</layout:HorizontalLayout> -->
 						<layout:VerticalLayout class="sapUiSmallMarginBeginEnd">
 							<ObjectAttribute
-								title="{/#Animals/Createdon/@sap:label}"
+								title="Createdn"
 								text="{
 									path: 'Createdon',
 									type: 'sap.ui.model.type.DateTime',
@@ -116,7 +116,7 @@
 								<uxap:blocks>
 									<Table
 										id="ins"
-										items="{/Products}"
+										
 									>
 										<headerToolbar>
 											<Toolbar>

@@ -1,10 +1,12 @@
 <mvc:View
 	controllerName="sap.ui.demo.masterdetail.controller.Master"
+	xmlns:mvc="sap.ui.core.mvc"
+	displayBlock="true"
 	xmlns="sap.m"
-	xmlns:semantic="sap.f.semantic"
 	xmlns:smartFilterBar="sap.ui.comp.smartfilterbar"
 	xmlns:smartTable="sap.ui.comp.smarttable"
-	xmlns:mvc="sap.ui.core.mvc">
+	xmlns:semantic="sap.f.semantic"	
+>
 
 	<semantic:SemanticPage
 		id="masterPage"
@@ -18,13 +20,14 @@
 		</semantic:titleHeading>
 		<semantic:content>
 						<VBox fitContainer="true">
+
 							<smartFilterBar:SmartFilterBar
-								id="smartFilterBar"
+								id="smartFilterBarr"
 								persistencyKey="UniqueAndStablePersistencyKey"
 								considerSelectionVariants="true"
-								entitySet="CustomersSet"
+								entitySet="OrdersSet"
 								enableBasicSearch="true"
-								basicSearchFieldName="CPF"
+								basicSearchFieldName="ID"
 								showClearButton="true"
 								filterBarExpanded="false"
 								liveMode="true"
@@ -32,22 +35,22 @@
 							>
 								<smartFilterBar:controlConfiguration>
 									<smartFilterBar:ControlConfiguration
-										key="Cpf"
+										key="Id"
 										visibleInAdvancedArea="true"
 									/>
 
 									<smartFilterBar:ControlConfiguration
-										key="Name"
+										key="Plateid"
 										visibleInAdvancedArea="true"
 									/>
 
 									<smartFilterBar:ControlConfiguration
-										key="Telephone"
+										key="Customerid"
 										visibleInAdvancedArea="true"
 									/>
 
 									<smartFilterBar:ControlConfiguration
-										key="Address"
+										key="Type"
 										visibleInAdvancedArea="true"
 									/>
 
@@ -59,12 +62,12 @@
 							</smartFilterBar:SmartFilterBar>
 							<smartTable:SmartTable
 								id="smartTable"
-								entitySet="CustomersSet"
+								entitySet="OrdersSet"
 								smartFilterId="smartFilterBar"
 								tableType="ResponsiveTable"
 								useVariantManagement="false"
-								header="Clientes Cadastrados"
-								initiallyVisibleFields="Cpf,Name,Telephone,Address,Action"
+								header="Ordens de serviço e produtos"
+								initiallyVisibleFields="Id,Plateid,Customerid,Type"
 								enableAutoBinding="true"
 								
 							>
