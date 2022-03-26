@@ -16,7 +16,8 @@
                 "type": "OData",
                 "settings": {
                     "odataVersion": "2.0",
-                    "localUri": "localService/metadata.xml"
+                    "localUri": "localService/metadata.xml",
+                    "useBatch": false
                 }
             }
         }
@@ -66,7 +67,10 @@
             },
             "": {
                 "dataSource": "mainService",
-                "preload": true
+                "preload": true,
+                "settings": {
+                    "useBatch": false
+                }
             }
         },
         "routing": {
@@ -96,14 +100,14 @@
                     ],
                     "ControlAggregation": "midColumnPages"
                 },
-
                 {
-					"pattern": "Order/{invoicePath}/{invoicePath1}",
-					"name": "order",
-					"target": [ 
-						"order"],
-					"controlAggregation": "midColumnPages"
-				}
+                    "pattern": "Order/{invoicePath}/{invoicePath1}",
+                    "name": "order",
+                    "target": [
+                        "order"
+                    ],
+                    "controlAggregation": "midColumnPages"
+                }
             ],
             "targets": {
                 "master": {
@@ -116,11 +120,11 @@
                     "viewId": "detail",
                     "viewLevel": 1,
                     "controlAggregation": "midColumnPages"
-                },               
-				"order": {
-					"viewName": "Order",
-					"controlAggregation": "midColumnPages" 
-				},
+                },
+                "order": {
+                    "viewName": "Order",
+                    "controlAggregation": "midColumnPages"
+                },
                 "detailObjectNotFound": {
                     "viewName": "DetailObjectNotFound",
                     "viewId": "detailObjectNotFound",

@@ -30,6 +30,8 @@ sap.ui.define([
 
 			this.setModel(models.createOrderModel(), "Order");
 
+			this.setModel(models.createItemOrderModel(), "ItemOrder");
+
 			// call the base component's init function and create the App view
 			UIComponent.prototype.init.apply(this, arguments);
 

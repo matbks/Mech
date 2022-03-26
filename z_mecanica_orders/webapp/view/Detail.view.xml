@@ -1,4 +1,4 @@
-<mvc:View
+	<mvc:View
 	controllerName="sap.ui.demo.masterdetail.controller.Detail"
 	xmlns="sap.m"
 	xmlns:semantic="sap.f.semantic"
@@ -9,104 +9,96 @@
 	<semantic:SemanticPage
 		id="detailPage"
 		busy="{detailView>/busy}"
-		busyIndicatorDelay="{detailView>/delay}">
-		<!-- <semantic:titleHeading>
+		busyIndicatorDelay="{detailView>/delay}"
+	>
+
+		<semantic:titleHeading>
 			<Title
-				text="{i18n>customer} - {Name}"
-				level="H2"/>
-		</semantic:titleHeading> -->
-		
+				text="Itens"
+				level="H1"
+			/>
+			
+		</semantic:titleHeading>
+
+
+		<semantic:headerContent>
+
+		<!-- Title Content-->
+
+
+			<layout:HorizontalLayout allowWrapping="true">
+				<layout:VerticalLayout class="sapUiMediumMarginEnd">
+					<ObjectAttribute
+						title="Id"
+						text="{Id}"
+					/>
+					<ObjectAttribute
+						title="Placa"
+						text="{Plate}"
+					/>
+					
+				</layout:VerticalLayout>
+				<layout:VerticalLayout>
+					<ObjectAttribute
+						title="Cpf"
+						text="{Cpf}"
+					/>	
+
+					<ObjectAttribute
+						title="Nome"
+						text="{Name}"
+					/>
+
+				</layout:VerticalLayout>
+			</layout:HorizontalLayout>
+		</semantic:headerContent>
 		<semantic:content>
 			<uxap:ObjectPageLayout
 				id="ObjectPageLayout"
 				enableLazyLoading="true"
 				useIconTabBar="true"
-				showTitleInHeaderContent="true"
-				selectedSection="create"	
+				showTitleInHeaderContent="false"
+				selectedSection="create"
 				upperCaseAnchorBar="false"
 				showHeaderContent="false"
 			>
-				<uxap:headerTitle>
+				<!-- <uxap:headerTitle>
 					<uxap:ObjectPageDynamicHeaderTitle>
-						<uxap:expandedHeading>
-							<Title
-								text="{Name}"
-								wrapping="true"
-							/>
-						</uxap:expandedHeading>
+
 						<uxap:snappedHeading>
 							<FlexBox
 								fitContainer="true"
 								alignItems="Center"
 							>
-								 <Avatar
-									src="https://di-uploads-pod5.dealerinspire.com/autocitysd/uploads/2017/12/typical-vehicle-maintenance-300x300.png"
-									class="sapUiTinyMarginEnd"
-								/> 
-								<Title
-									text="{Name}"
-									wrapping="true"
-								/>
+								 
+								 
 							</FlexBox>
+
+							
 						</uxap:snappedHeading>
 						<uxap:expandedContent>
-							<Text text="{Species}"/>
+						
+						<Avatar
+									src="https://www.nicepng.com/png/full/208-2087825_it-services-products-and-services-icon.png"
+									class="sapUiTinyMarginEnd"
+								/> 
+							
+						<Text text="Order: {Id}"  />
 						</uxap:expandedContent>
-						<uxap:snappedContent>
-							<Text text="{Species}"/>
-						</uxap:snappedContent>
-						<uxap:snappedTitleOnMobile>
-							<Title text="{Species}"/>
-						</uxap:snappedTitleOnMobile>
 					</uxap:ObjectPageDynamicHeaderTitle>
-				</uxap:headerTitle>
+					
+				</uxap:headerTitle> -->
 				<uxap:headerContent>
 					<FlexBox
 						wrap="Wrap"
 						fitContainer="true"
-					>
-						 <Avatar
-							class="sapUiSmallMarginEnd"
-							src="https://di-uploads-pod5.dealerinspire.com/autocitysd/uploads/2017/12/typical-vehicle-maintenance-300x300.png"
-							displaySize="L"
-						/> 
-						<layout:VerticalLayout class="sapUiSmallMarginBeginEnd">
-							<ObjectAttribute
-								title="Age"
-								text="{Age}"
-							/>
-							<ObjectAttribute
-								title="Race"
-								text="{Race}"
-							/>
-						</layout:VerticalLayout>
-						<!-- <layout:HorizontalLayout class="sapUiSmallMarginBeginEnd">
-							<Image src="./test-resources/sap/uxap/images/linkedin.png"/>
-							<Image
-								src="./test-resources/sap/uxap/images/Twitter.png"
-								class="sapUiSmallMarginBegin"
-							/>
-						</layout:HorizontalLayout> -->
-						<layout:VerticalLayout class="sapUiSmallMarginBeginEnd">
-							<ObjectAttribute
-								title="Createdn"
-								text="{
-									path: 'Createdon',
-									type: 'sap.ui.model.type.DateTime',
-									formatOptions: {
-										style: 'medium'
-									}
-								}"
-							/>
-						</layout:VerticalLayout>
-
-					</FlexBox>
+					/>
 				</uxap:headerContent>
 				<uxap:sections>
 					<uxap:ObjectPageSection
 						titleUppercase="false"
 						id="create"
-						title="Create Service Order"
+						title="Adicionar produto ou serviço"
 					>
 						<uxap:subSections>
 							<uxap:ObjectPageSubSection
@@ -114,49 +106,65 @@
 								titleUppercase="false"
 							>
 								<uxap:blocks>
-									<Table
-										id="ins"
-										
+									<Table 
+									id="pes"
+									items="{servicesAndProducts>/order_items}"
 									>
+
 										<headerToolbar>
 											<Toolbar>
 												<Button
 													icon="sap-icon://add"
-													text="Create"
+													text="Criar"
 													press="addRow"
+												/>
+
+												<Button
+													icon="sap-icon://save"
+													text="Salvar"
+													press="saveRow"
 												/>
 											</Toolbar>
 										</headerToolbar>
 										<columns>
-											<Column width="50px"/>
-											<Column>
-												<Text text="Description"/>
+											
+											<Column width="70px">
+											<Text text="Deletar"/>
+											</Column>
+		
+											<Column
+												minScreenWidth="Tablet"
+												demandPopin="true"
+											>
+												<Text text="Descrição"/>
 											</Column>
 											<Column
 												minScreenWidth="Tablet"
 												demandPopin="true"
 											>
-												<Text text="Date"/>
+												<Text text="Quantidade"/>
 											</Column>
+											 <Column
+												minScreenWidth="Tablet"
+												demandPopin="true"
+											>
+												<Text text="Unidade"/>
+											</Column> 
+											 <Column
+												minScreenWidth="Tablet"
+												demandPopin="true"
+											>
+												<Text text="Preço"/>
+											</Column> 
+
 											<Column
 												minScreenWidth="Tablet"
 												demandPopin="true"
 											>
-												<Text text="Quantity"/>
-											</Column>
-											<Column
-												minScreenWidth="Tablet"
-												demandPopin="true"
-											>
-												<Text text="Unit"/>
-											</Column>
-											<Column
-												minScreenWidth="Tablet"
-												demandPopin="true"
-											>
-												<Text text="Price"/>
+												<Text text="Tipo"/>
 											</Column>
 										</columns>
+
 										<items>
 											<ColumnListItem>
 												<cells>
@@ -165,11 +173,13 @@
 														press="deleteRow"
 														type="Reject"
 													/>
-													<Input value="Oil change"/>
-													<Input value="09/03/2022"/>
-													<Input value="1"/>
-													<Input value="L"/>
-													<Input value="500,00"/>
+
+													<Input value="{servicesAndProducts>Description}"/>
+													<Input value="{servicesAndProducts>Quantity}"/>
+													<Input value="{servicesAndProducts>Unit}"/>
+													<Input value="{servicesAndProducts>Price}"/>
+												    <Input value="{servicesAndProducts>Type}"/>
+
 												</cells>
 											</ColumnListItem>
 										</items>
@@ -179,35 +189,15 @@
 						</uxap:subSections>
 					</uxap:ObjectPageSection>
 					
-			
-					
-					<uxap:ObjectPageSection
-						titleUppercase="false"
-						id="connections"
-						title="Create Product Order"
-					>
-						<uxap:subSections>
-							<uxap:ObjectPageSubSection
-								id="connectionsSS1"
-								titleUppercase="false"
-							>
-								<uxap:blocks>
-									<Label text="qualquer coisa"/>
-								</uxap:blocks>
-							</uxap:ObjectPageSubSection>
-						</uxap:subSections>
-					</uxap:ObjectPageSection>
 				</uxap:sections>
 			</uxap:ObjectPageLayout>
 		</semantic:content>
-
 		<semantic:exitFullScreenAction>
 			<semantic:ExitFullScreenAction
-					id="exitFullScreen"
-					visible="{= !${device>/system/phone} &amp;&amp; ${appView>/actionButtonsInfo/midColumn/fullScreen}}"
-					press=".toggleFullScreen"/>
+				id="exitFullScreen"
+				visible="{= !${device>/system/phone} &amp;&amp; ${appView>/actionButtonsInfo/midColumn/fullScreen}}"
+				press=".toggleFullScreen"
+			/>
 		</semantic:exitFullScreenAction>
-
 	</semantic:SemanticPage>
-
 </mvc:View>

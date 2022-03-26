@@ -34,8 +34,30 @@ sap.ui.define([
 
 		  createOrderModel: function () {
 			var oModel = new JSONModel({
-				
+				Id: "",
 				Plate: "",
+				Brand: "",
+				Model: "",
+				Fabyear: "",
+				Color: "",
+				Cpf: "",
+				Name:"",
+				Telephone: "",
+				Address: "",
+			});
+			return oModel;
+		  },
+
+		  createItemOrderModel:
+		  function () {
+			var oModel = new JSONModel({
+				Id: "",
+				Item: "",
+				Description: "",
+				Date: "",
+				Quantity: "",
+				Unit: "",
+				Price: "",
 			});
 			return oModel;
 		  }

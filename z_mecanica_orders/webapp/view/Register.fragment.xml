@@ -6,7 +6,7 @@
 >
 	<Dialog
 		id="openDialog"
-		title="{i18n>registerCustomer}"
+		title="{i18n>registerOrder}"
 	>
 		<beginButton>
 			<Button
@@ -27,28 +27,64 @@
 			editable="true"
 		>
 			<f:content>
-				<Label text="{/#Customers/Cpf/@sap:label}"/>
-				<MaskInput
-					value="{Customer>/Cpf}"
-					mask="999.999.999-99"
-					placeholder="{i18n>addCPF}"
-				/>
-				<Label text="{/#Customers/Name/@sap:label}"/>
+				<Label text="{i18n>Id}"/>
 				<Input
-					value="{Customer>/Name}"
-					placeholder="{i18n>addName}"
+					value="{Order>/Id}"
+					placeholder="{i18n>addId}"
 				/>
-				<Label text="{/#Customers/Address/@sap:label}"/>
+				<Label text="{Placa}"/>
 				<Input
-					value="{Customer>/Address}"
-					placeholder="{i18n>addAddress}"
+					value="{Order>/Plate}"
+					placeholder="Insira a placa"
 				/>
-				<Label text="{/#Customers/Telephone/@sap:label}"/>
-				<MaskInput
-					value="{Customer>/Telephone}"
-					mask="(99) 9 9999 9999"
-					placeholder="{i18n>addPhone}"
+
+				<Label text="Marca"/>
+				<Input
+					value="{Order>/Brand}"
+					placeholder="Insira a marca"
 				/>
+
+				<Label text="{i18n>Model}"/>
+				<Input
+					value="{Order>/Model}"
+					placeholder="Insira o modelo"
+				/>
+
+				<Label text="Ano Fab"/>
+				<Input
+					value="{Order>/Fabyear}"
+					placeholder="Insira o ano de fabircação"
+				/>
+
+				<Label text="Cor"/>
+				<Input
+					value="{Order>/Color}"
+					placeholder="Insira a cor"
+				/>
+
+				<Label text="Cpf"/>
+				<Input
+					value="{Order>/Cpf}"
+					placeholder="Insira o CPF"
+				/>
+				<Label text="Nome"/>
+				<Input
+					value="{Order>/Name}"
+					placeholder="Insira o nome"
+				/>
+
+				<Label text="Telefone"/>
+				<Input
+					value="{Order>/Telephone}"
+					placeholder="Insira o numero de telefone"
+				/>
+
+				<Label text="Endereço"/>
+				<Input
+					value="{Order>/Address}"
+					placeholder="Insira o endereço"
+				/>
+
 			</f:content>
 		</f:SimpleForm>
 	</Dialog>

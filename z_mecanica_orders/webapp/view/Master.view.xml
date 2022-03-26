@@ -13,10 +13,10 @@
 		preserveHeaderStateOnScroll="true"
 		toggleHeaderOnTitleClick="false">
 		<semantic:titleHeading>
-			<Title
+			<Title			
 				id="masterPageTitle"
-				text="{masterView>/title}"
-				level="H2"/>
+				text="Ordens"
+				level="H1"/>
 		</semantic:titleHeading>
 		<semantic:content>
 						<VBox fitContainer="true">
@@ -27,10 +27,11 @@
 								considerSelectionVariants="true"
 								entitySet="OrdersSet"
 								enableBasicSearch="true"
-								basicSearchFieldName="ID"
+								basicSearchFieldName="Id"
 								showClearButton="true"
 								filterBarExpanded="false"
 								liveMode="true"
+								controlConfiguration="true"
 								
 							>
 								<smartFilterBar:controlConfiguration>
@@ -40,17 +41,48 @@
 									/>
 
 									<smartFilterBar:ControlConfiguration
-										key="Plateid"
+										key="Plate"
+										preventInitialDataFetchInValueHelpDialog="false"
+										visibleInAdvancedArea="true"
+																	
+									/>
+									<smartFilterBar:ControlConfiguration
+										key="Brand"
 										visibleInAdvancedArea="true"
 									/>
 
 									<smartFilterBar:ControlConfiguration
-										key="Customerid"
+										key="Model"
 										visibleInAdvancedArea="true"
 									/>
 
 									<smartFilterBar:ControlConfiguration
-										key="Type"
+										key="Fabyear"
+										visibleInAdvancedArea="true"
+									/>
+
+									<smartFilterBar:ControlConfiguration
+										key="Color"
+										visibleInAdvancedArea="true"
+									/>
+
+									<smartFilterBar:ControlConfiguration
+										key="Cpf"
+										visibleInAdvancedArea="true"
+									/>
+
+									<smartFilterBar:ControlConfiguration
+										key="Name"
+										visibleInAdvancedArea="true"
+									/>
+
+									<smartFilterBar:ControlConfiguration
+										key="Telehpone"
+										visibleInAdvancedArea="true"
+									/>
+
+									<smartFilterBar:ControlConfiguration
+										key="Address"
 										visibleInAdvancedArea="true"
 									/>
 
@@ -67,7 +99,7 @@
 								tableType="ResponsiveTable"
 								useVariantManagement="false"
 								header="Ordens de serviço e produtos"
-								initiallyVisibleFields="Id,Plateid,Customerid,Type"
+								initiallyVisibleFields="Id,Plate,Brand,Model,Fabyear,Color,Cpf,Name,Telephone,Address"
 								enableAutoBinding="true"
 								
 							>

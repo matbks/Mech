@@ -33,7 +33,7 @@ sap.ui.define([
 			// set the layout property of FCL control to show two columns
 			this.getModel("appView").setProperty("/layout", "TwoColumnsBeginExpanded");
 			this.getRouter().navTo("object", {
-				objectId : oItem.getBindingContext().getProperty("Cpf")
+				objectId : oItem.getBindingContext().getProperty("Id")
 			}, bReplace);
 		},
   
@@ -56,11 +56,11 @@ sap.ui.define([
 		},
   
 		handleSaveBtnPress: function (oEvent) {
-		  var oModelCustomer = this.getView().getModel("Customer");
+		  var oModelCustomer = this.getView().getModel("Order");
 		  var oModel = this.getView().getModel();
   
 		  if (!this.gbEditing) {
-			oModel.create("/CustomersSet", oModelCustomer.getData(), {
+			oModel.create("/OrdersSet", oModelCustomer.getData(), {
 			  success: function (oData, oResponse) {
 				if (oResponse.statusCode == "201") {
 				  var msg = this.getOwnerComponent().getModel("i18n").getResourceBundle().getText("created");
@@ -78,8 +78,8 @@ sap.ui.define([
 			});
 		  } else {
 			var oCurrentCustomer = oModelCustomer.getData();
-			var sUpdate = oModel.createKey("/CustomersSet", {
-			  Cpf: oCurrentCustomer.Cpf,
+			var sUpdate = oModel.createKey("/OrdersSet", {
+			  Id: oCurrentCustomer.Id,
 			});
   
 			oModel.update(sUpdate, oCurrentCustomer, {
@@ -113,7 +113,7 @@ sap.ui.define([
 			else {
 			  var SelectedItem = oSmartTable.getModel().getProperty(oSmartTable._aSelectedPaths.toString());
 			  var oView = this.getView();
-			  var modelCustomer = oView.getModel("Customer");
+			  var modelCustomer = oView.getModel("Order");
 			  modelCustomer.setData(SelectedItem);
 			  if (!this.byId("openDialog")) {
 				Fragment.load({
@@ -162,7 +162,7 @@ sap.ui.define([
 					  if (oResponse.statusCode == "204") {
 						var msg = this.getOwnerComponent().getModel("i18n").getResourceBundle().getText("deleted");
 						MessageBox.success(msg);
-						this.handleCancelBtnPress();
+						
 					  }
 					 }.bind(this),
 					error: function (oError) {
@@ -181,16 +181,16 @@ sap.ui.define([
   
 		handleCancelBtnPress: function () {
 		  this.byId("openDialog").close();
-		  var modelCustomer = this.getView().getModel("Customer");
+		  var modelCustomer = this.getView().getModel("Order");
 		  this.clearModel(modelCustomer);
 		},
   
 		clearModel: function (oModel) {
 		  oModel.setData({
-			Cpf: "",
-			Name: "",
-			Address: "",
-			Telephone: "",
+			Id: "",
+			Plateid: "",
+			Customerid: "",
+			Type: "",
 		  });
 		},
 	  });
