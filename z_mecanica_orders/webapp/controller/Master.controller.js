@@ -188,7 +188,7 @@ sap.ui.define([
 		clearModel: function (oModel) {
 		  oModel.setData({
 			Id: "",
-			Plateid: "",
+			Plate: "",
 			Customerid: "",
 			Type: "",
 		  });

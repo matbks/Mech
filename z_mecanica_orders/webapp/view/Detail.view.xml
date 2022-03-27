@@ -1,4 +1,4 @@
-	<mvc:View
+<mvc:View
 	controllerName="sap.ui.demo.masterdetail.controller.Detail"
 	xmlns="sap.m"
 	xmlns:semantic="sap.f.semantic"
@@ -11,21 +11,14 @@
 		busy="{detailView>/busy}"
 		busyIndicatorDelay="{detailView>/delay}"
 	>
-
 		<semantic:titleHeading>
 			<Title
 				text="Itens"
 				level="H1"
 			/>
-			
 		</semantic:titleHeading>
-
-
 		<semantic:headerContent>
-
-		<!-- Title Content-->
-
-
+			<!-- Title Content-->
 			<layout:HorizontalLayout allowWrapping="true">
 				<layout:VerticalLayout class="sapUiMediumMarginEnd">
 					<ObjectAttribute
@@ -36,19 +29,16 @@
 						title="Placa"
 						text="{Plate}"
 					/>
-					
 				</layout:VerticalLayout>
 				<layout:VerticalLayout>
 					<ObjectAttribute
 						title="Cpf"
 						text="{Cpf}"
-					/>	
-
+					/>
 					<ObjectAttribute
 						title="Nome"
 						text="{Name}"
 					/>
-
 				</layout:VerticalLayout>
 			</layout:HorizontalLayout>
 		</semantic:headerContent>
@@ -62,32 +52,6 @@
 				upperCaseAnchorBar="false"
 				showHeaderContent="false"
 			>
-				<!-- <uxap:headerTitle>
-					<uxap:ObjectPageDynamicHeaderTitle>
-
-						<uxap:snappedHeading>
-							<FlexBox
-								fitContainer="true"
-								alignItems="Center"
-							>
-								 
-								 
-							</FlexBox>
-
-							
-						</uxap:snappedHeading>
-						<uxap:expandedContent>
-						
-						<Avatar
-									src="https://www.nicepng.com/png/full/208-2087825_it-services-products-and-services-icon.png"
-									class="sapUiTinyMarginEnd"
-								/> 
-							
-						<Text text="Order: {Id}"  />
-						</uxap:expandedContent>
-					</uxap:ObjectPageDynamicHeaderTitle>
-					
-				</uxap:headerTitle> -->
 				<uxap:headerContent>
 					<FlexBox
 						wrap="Wrap"
@@ -106,11 +70,10 @@
 								titleUppercase="false"
 							>
 								<uxap:blocks>
-									<Table 
-									id="pes"
-									items="{servicesAndProducts>/order_items}"
+									<Table
+										id="pes"
+										items="{servicesAndProducts>/order_items}"
 									>
-
 										<headerToolbar>
 											<Toolbar>
 												<Button
@@ -118,7 +81,6 @@
 													text="Criar"
 													press="addRow"
 												/>
-
 												<Button
 													icon="sap-icon://save"
 													text="Salvar"
@@ -127,44 +89,45 @@
 											</Toolbar>
 										</headerToolbar>
 										<columns>
-											
 											<Column width="70px">
-											<Text text="Deletar"/>
+												<Text text="Deletar"/>
 											</Column>
-		
 											<Column
 												minScreenWidth="Tablet"
 												demandPopin="true"
+												
 											>
 												<Text text="Descrição"/>
 											</Column>
 											<Column
 												minScreenWidth="Tablet"
 												demandPopin="true"
+												width="150px"
 											>
 												<Text text="Quantidade"/>
 											</Column>
-											 <Column
-												minScreenWidth="Tablet"
-												demandPopin="true"
-											>
-												<Text text="Unidade"/>
-											</Column> 
-											 <Column
-												minScreenWidth="Tablet"
-												demandPopin="true"
-											>
-												<Text text="Preço"/>
-											</Column> 
-
 											<Column
 												minScreenWidth="Tablet"
 												demandPopin="true"
+												width="150px"
+											>
+												<Text text="Unidade"/>
+											</Column>
+											<Column
+												minScreenWidth="Tablet"
+												demandPopin="true"
+												width="150px"
+											>
+												<Text text="Preço"/>
+											</Column>
+											<Column
+												minScreenWidth="Tablet"
+												demandPopin="true"
+												width="45px"
 											>
 												<Text text="Tipo"/>
 											</Column>
 										</columns>
-
 										<items>
 											<ColumnListItem>
 												<cells>
@@ -173,22 +136,42 @@
 														press="deleteRow"
 														type="Reject"
 													/>
-
 													<Input value="{servicesAndProducts>Description}"/>
 													<Input value="{servicesAndProducts>Quantity}"/>
 													<Input value="{servicesAndProducts>Unit}"/>
 													<Input value="{servicesAndProducts>Price}"/>
-												    <Input value="{servicesAndProducts>Type}"/>
-
+													<Input value="{servicesAndProducts>Type}"/>
 												</cells>
 											</ColumnListItem>
 										</items>
 									</Table>
 								</uxap:blocks>
 							</uxap:ObjectPageSubSection>
+							<uxap:ObjectPageSubSection
+								id="goalsSS2"
+								titleUppercase="false"
+							
+							>
+								<uxap:blocks>
+									<Table
+										id="pees"
+										showNoData="false"
+									>
+										<columns>
+											<Column
+												width="100%"
+												minScreenWidth="Tablet"
+												demandPopin="true"
+												hAlign="End"
+											>
+												<Text text="Total: R$ {totValue>/total_value},00"/>
+											</Column>
+										</columns>
+									</Table>
+								</uxap:blocks>
+							</uxap:ObjectPageSubSection>
 						</uxap:subSections>
 					</uxap:ObjectPageSection>
-					
 				</uxap:sections>
 			</uxap:ObjectPageLayout>
 		</semantic:content>

@@ -43,9 +43,12 @@ sap.ui.define([
 
 			this._data = {
 				order_items: [],
+				total_value: [],
 			};
 
 			this.jModel = new JSONModel(this._data);
+
+
 
 
 
@@ -165,18 +168,14 @@ sap.ui.define([
 
 			this.getOwnerComponent().oListSelector.selectAListItem(sPath);
 
-			oViewModel.setProperty("/shareSendEmailSubject",
-				oResourceBundle.getText("shareSendEmailObjectSubject", [sObjectId]));
-			oViewModel.setProperty("/shareSendEmailMessage",
-				oResourceBundle.getText("shareSendEmailObjectMessage", [sObjectName, sObjectId, location.href]));
 		},
 
 		_onMetadataLoaded: function () {
 			// Store original busy indicator delay for the detail view
 			var iOriginalViewBusyDelay = this.getView().getBusyIndicatorDelay(),
 				oViewModel = this.getModel("detailView"),
-				oLineItemTable = this.byId("pes")
-			iOriginalLineItemTableBusyDelay = oLineItemTable.getBusyIndicatorDelay();
+				oLineItemTable = this.byId("pes"),
+				iOriginalLineItemTableBusyDelay = oLineItemTable.getBusyIndicatorDelay();
 
 			// Make sure busy indicator is displayed immediately when
 			// detail view is displayed for the first time
@@ -245,8 +244,7 @@ sap.ui.define([
 			var deleteRecord = oEvent
 				.getSource()
 				.getBindingContext("servicesAndProducts");
-			//	.getObject();
-			//	.getPath();
+
 			for (var i = 0; i < this._data.order_items.length; i++) {
 				if (this._data.order_items[i] == deleteRecord.getObject()) {
 
@@ -261,6 +259,7 @@ sap.ui.define([
 									var msg = this.getOwnerComponent().getModel("i18n").getResourceBundle().getText("deleted");
 									MessageBox.success(msg);
 
+
 								}
 							}.bind(this),
 							error: function (oError) {
@@ -270,8 +269,9 @@ sap.ui.define([
 							},
 						});
 					}
-					this._data.order_items.splice(i, 1); //removing 1 record from i th index.
+					this._data.order_items.splice(i, 1); //removing 1 record from i th index.					
 					this.jModel.refresh();
+					this.byId("pees").getModel().refresh(true);
 				}
 			}
 		},
@@ -285,34 +285,40 @@ sap.ui.define([
 			oModel.read("/OrderItemsSet", {
 				filters: oFilter,
 				success: function (oData, oResponse) {
+
+					var totalValue = 0;
+					for (let i in oData.results) {
+						totalValue += parseInt(oData.results[i].Price);
+					}
+
+					this.jModel.setProperty("/total_value", totalValue);
 					this._data.order_items = oData.results;
 					this.jModel.refresh();
+					this.byId("pees").setModel(this.jModel, "totValue");
 					this.byId("pes").getModel().refresh(true);
+					this.byId("pees").getModel().refresh(true);
+
 				}.bind(this),
 				error: function (oError) {
-					this.jModel.setData(this._data);
+					//this.jModel.setData(this._data);
 				}.bind(this),
 			});
 		},
 
-		// getItems: function(id) {
-
-		// 	if ( this.select("/OrderItemsSet", this._data.order_items, "Id", id) == "0" ) 
-		// 	{
-		// 		this.jModel.refresh();
-		// 		this.byId("pes").getModel().refresh(true);
-		// 	}
-		// 	else{ this.jModel.setData(this._data); }
-
-		// },
-
 		onBeforeRendering: function () {
-
 			this.byId("pes").setModel(this.jModel, "servicesAndProducts");
+			this.byId("pees").setModel(this.jModel, "totValue");
 		},
+
+		/**
+		 * @override
+		 */
+
 		onNavBack: function () {
 			history.go(-2);
 		},
+
+
 
 		onClearMessages: function () {
 			this.getModel("orderView").setProperty(
@@ -324,107 +330,198 @@ sap.ui.define([
 
 		},
 
-		saveRow: function (oEvent) {
+		saveRow: async function (oEvent) {
 
 			var createItemError = false
 			var createItemErrorLog;
+			var updateItemError = false;
+			var updateItemErrorLog;
 			var keys_to_be_deleted = [];
+			var biggerItem = 0;
+			var oModel = this.getView().getModel();
+			var oFilter = [
+				new Filter("Id", FilterOperator.EQ, this.sOrderId),
+			];
+			var id = this.sOrderId;
 
 			for (let key in this._data.order_items) {
 
+
+				//IF NOT CREATED YET
 				if (this._data.order_items[key].Id == undefined && this._data.order_items[key].Item == undefined) {
 					var line = this._data.order_items[key];
-
-
+					//var id = this.sOrderId;
+					// IF AL FIELD WAS FILLED CREATE
 					if (line.Description != '' && line.Id != '' && line.Item != '' && line.Quantity != '' && line.Type != '' && line.Price != '' && line.Unit != '') {
-						var item = key;
-						item = ++item;
-
-						line.Id = this.sOrderId;
-						line.Item = item.toString();
-						line.Description = line.Description;
-						line.Quantity = line.Quantity.toString();
-						line.Type = line.Type;
-						line.Price = line.Price.toString();
-						line.Unit = line.Unit.toString();
-
-						var oModel = this.getView().getModel();
-
-						oModel.create("/OrderItemsSet", line, {
+						//CREATE
+						
+						const oPromise0 = await new Promise((resolve, reject) => {
+						oModel.read("/OrderItemsSet", {
+							filters: oFilter,
 							success: function (oData, oResponse) {
-								if (
-									key == this._data.order_items.length - 1 &&
-									createItemError == false
-								) {
-									this._clearOrderTable();
+								biggerItem = 0;
+								for (let i in oData.results) {
+									if (oData.results[i].Item > biggerItem) {
+										biggerItem = oData.results[i].Item;
+									}
 								}
-							}.bind(this),
+								let newItem = parseInt(biggerItem) + 1;
+								line.Id = id;
+								line.Item = newItem.toString();
+								line.Description = line.Description;
+								line.Quantity = line.Quantity.toString();
+								line.Type = line.Type;
+								line.Price = line.Price.toString();
+								line.Unit = line.Unit.toString();
+
+
+								oModel.create("/OrderItemsSet", line, {							
+									success: function (oData, oResponse) {
+										resolve(oData)
+									}.bind(this),
+									error: function (oError) {
+										createItemError = true;
+										createItemErrorLog = "Falha na criação do item da linha " + key;
+									}.bind(this),
+								});					
+							},
+
 							error: function (oError) {
 								createItemError = true;
-								createItemErrorLog = "Falha na criação do item da linha " + key;
-							}.bind(this),
+								createItemErrorLog = "Falha no update da linha "+ key;
+								MessageBox.error(createItemErrorLog);
+							},
 						});
-					}
-					else if (line.Description != '' || line.Quantity != '' || line.Type != '' || line.Price != '' || line.Unit != '')
-					{	
+
+					}).then((oData) => {
+						//this.jModel.refresh();						
+						});
+							// let newItem = parseInt(biggerItem) + 1;
+							// line.Id = this.sOrderId;
+							// line.Item = (newItem).toString();
+							// line.Description = line.Description;
+							// line.Quantity = line.Quantity.toString();
+							// line.Type = line.Type;
+							// line.Price = line.Price.toString();
+							// line.Unit = line.Unit.toString();
+
+							// var oModel = this.getView().getModel();
+
+							// oModel.create("/OrderItemsSet", line, {
+							// 	success: function (oData, oResponse) {
+
+							// 	}.bind(this),
+							// 	error: function (oError) {
+							// 		createItemError = true;
+							// 		createItemErrorLog = "Falha na criação do item da linha " + key;
+							// 	}.bind(this),
+							// });
+
+						}
+					// IF SOME FIELD IS NOT FILLED WARN USER
+					else if (line.Description != '' || line.Quantity != '' || line.Type != '' || line.Price != '' || line.Unit != '') {
 						var errorLine = parseInt(key) + 1;
 						createItemError = true;
 						createItemErrorLog = "Preencha todos os dados da linha " + errorLine;
 					}
+
+					// IF NO FIELD WAS FILLED DELETE ROW
 					else {
 						keys_to_be_deleted.push(key);
 					}
 				}
-				else {
-					var updateItemError = false;
-					var updateItemErrorLog;
+				else { // UPDATE
+
 					var line = this._data.order_items[key];
 
-					var item = key;
-					item = ++item;
+					// var oFilter = [
+					// 	new Filter("Id", FilterOperator.EQ, this.sOrderId),
+					// ];
 
-					line.Id = this.sOrderId;
-					line.Item = item.toString();
-					line.Description = line.Description;
-					line.Quantity = line.Quantity.toString();
-					line.Type = line.Type;
-					line.Price = line.Price.toString();
-					line.Unit = line.Unit.toString();
+					const oPromise = await new Promise((resolve, reject) => {
+						oModel.read("/OrderItemsSet", {
+							filters: oFilter,
+							success: function (oData, oResponse) {
+								//resolve(oData)
+								line.Id = id;
+								line.Item = line.Item.toString();
+								line.Description = line.Description;
+								line.Quantity = line.Quantity.toString();
+								line.Type = line.Type;
+								line.Price = line.Price.toString();
+								line.Unit = line.Unit.toString();
 
-					var oModel = this.getView().getModel();
 
-					oModel.update("/OrderItemsSet(Id='" + line.Id + "'," + "Item='" + line.Item + "')", line, 
-					{
-						method: "PUT",
-						success: function(oData, oResponse) { sap.m.MessageToast.show(" updated Successfully");}, 
-						error: function(oError) {sap.m.MessageToast.show("failure");} 
-					});
+								oModel.update("/OrderItemsSet(Id='" + line.Id + "'," + "Item='" + line.Item + "')", line, {
+									success: (oData) => {
+										
+										resolve(oData)
+									},
+									error: (oError) => {
+										createItemError = true;
+										createItemErrorLog = "Falha no update da linha " + (parseInt(key) + 1);
+										MessageBox.error(createItemErrorLog);
+									}
+								});
+
+							},
+
+							error: function (oError) {
+								createItemErrorLog = "Falha no update da linha ";
+								MessageBox.error(createItemErrorLog);
+							},
+
+						});
+					}).then((oData) => {
+						//this.jModel.refresh();						
+						});
+
+					// line.Id = this.sOrderId;
+					// line.Item = (biggerItem + 1).toString();
+					// line.Description = line.Description;
+					// line.Quantity = line.Quantity.toString();
+					// line.Type = line.Type;
+					// line.Price = line.Price.toString();
+					// line.Unit = line.Unit.toString();
+
+					// const oPromise = await new Promise((resolve, reject) => {
+					// 	oModel.update("/OrderItemsSet(Id='" + line.Id + "'," + "Item='" + line.Item + "')", line, {
+					// 		success: (oData) => {
+					// 			resolve(oData)
+					// 		},
+					// 		error: (oError) => {
+					// 			createItemError = true;
+					// 			createItemErrorLog = "Falha no update da linha " + (parseInt(key) + 1);
+					// 			MessageBox.error(createItemErrorLog);
+					// 		}
+					// 	});
+					// });
+					// .then((oData) => {
+					// 	//some code
+
+					// });
 				}
 			}
 
-			for (let x in keys_to_be_deleted.sort((a, b) => b - a)) 
-			{
+			for (let x in keys_to_be_deleted.sort((a, b) => b - a)) {
 				this._data.order_items.splice(keys_to_be_deleted[x], 1); //removing 1 record from i th index.
+				
 			}
 
+			 					
+			//this.byId("pes").getModel().refresh(true);
+			//this.byId("pees").getModel().refresh(true);
+			this.getItems(this.sOrderId);
 			this.jModel.refresh();
-
-			if (updateItemError && createItemError == false) 
-			{
+			if (updateItemError && createItemError == false) {
 				MessageBox.success(updateItemErrorLog);
 			}
-			else if (updateItemError == false && createItemError)
-			{
+			else if (updateItemError == false && createItemError) {
 				MessageBox.success(createItemErrorLog);
 			}
-			else 
-			{ 
+			else {
 				MessageBox.success("Salvo com sucesso");
 			}
 		}
-
-
-
 	});
-
 });
